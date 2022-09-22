@@ -1,6 +1,8 @@
 package logica;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,16 +14,20 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class CardTest {
     @Test
-    public void typeTest() {
-        for(int i = 'A'; i <= 'Z'; i++) {
+    public void typeTestOnEveryLetter() {
+        for (int i = 'A'; i <= 'Z'; i++) {
             if (i == 'C' || i == 'D' || i == 'H' || i == 'S') continue;
             char t = (char) i;
             assertThrows(IllegalArgumentException.class, () -> new Card(t + "1"));
-        };
+        }
+        ;
     }
 
-    @Test
-    public void valueTest() {
-        for(int i)
+    @ParameterizedTest
+    @CsvSource(value = {"1 15 C"})
+    public void valueTestOnWrongCardValues(String cardValues) {
+        for (String cardValue : cardValues.split(" ")) {
+            assertThrows(IllegalArgumentException.class, () -> new Card("C" + cardValue));
+        }
     }
 }
