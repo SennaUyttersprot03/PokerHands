@@ -19,4 +19,9 @@ class CardTest {
             assertThrows(IllegalArgumentException.class, () -> new Card(t + "1"));
         };
     }
+
+    @Test
+    public void valueTest() {
+        for(int i)
+    }
 }

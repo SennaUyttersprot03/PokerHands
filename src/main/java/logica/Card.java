@@ -13,11 +13,11 @@ public class Card {
     CardTypes type;
     String value;
 
-    public Card(String type, String value) {
+    public Card(String type, String value) throws IllegalArgumentException {
         this.type = CardTypes.valueOf(type);
         this.value = value;
     }
-    public Card(String card) {
+    public Card(String card) throws IllegalArgumentException {
         this.type = CardTypes.valueOf("" + card.charAt(0));
         this.value = card.substring(1);
     }
