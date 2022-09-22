@@ -16,7 +16,13 @@ public class Card {
     }
     public Card(String card) throws IllegalArgumentException {
         this.type = CardTypes.valueOf("" + card.charAt(0));
-        this.value = card.substring(1);
+        String temp = card.substring(1);
+        if ("JQKA".contains(temp) ||
+                (2 <= Integer.parseInt(temp)
+                && Integer.parseInt(temp) <= 10)) {
+            this.value = temp;
+        } else throw new IllegalArgumentException("Should be between [2,10] or be J,Q,K or A");
+
     }
 
     public CardTypes getType() {
