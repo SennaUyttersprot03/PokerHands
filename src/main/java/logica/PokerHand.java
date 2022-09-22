@@ -23,6 +23,9 @@ public class PokerHand {
         }else if(hand.length > 5){
             throw new IllegalArgumentException("Hand is groter dan 5");
         }
+        if (!bevatDubbeleKaarten(hand)) {
+            throw new IllegalArgumentException("Hand bevat dubbele kaarten");
+        }
        this.hand = hand;
     }
 
@@ -47,5 +50,18 @@ public class PokerHand {
             }
         }
         return cardZelfdeTekens;
+    }
+
+    public boolean bevatDubbeleKaarten(Card[] hand) {
+        for (int i = 0; i < hand.length - 1; i++) {
+            Card temp = hand[i];
+
+            for (int j = i + 1; j < hand.length - 2; j++) {
+                if (temp == hand[j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
