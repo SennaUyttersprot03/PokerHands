@@ -31,15 +31,9 @@ public class PokerHand {
             return "royal flush";
         }
 
-        int aantalOplopendeKaarten = 0;
-
-
-
-
-
     }
 
-    public boolean alleTypeHetzelfde(){
+    public boolean alleTypesHetzelfde(){
         boolean cardZelfdeTekens = true;
         for (int i = 0; i < HANDGROTE; i++){
             if (hand[0].getType() != hand[i].getType()){
@@ -47,5 +41,26 @@ public class PokerHand {
             }
         }
         return cardZelfdeTekens;
+    }
+
+    public boolean opeenLopendeVlues(){
+        boolean output = true;
+        int aantalOplopendeKaarten = 0;
+        int[] handRang = new int[5];
+        for(int i = 0; i < HANDGROTE; i++){
+            for(int x = 0; x < kaartValue.length; x++){
+                if(hand[i].getValue() == kaartValue[x]){
+                    handRang[i] = x;
+                }
+            }
+        }
+        int laagsteRang = 14;
+        for (int i = 0; i < HANDGROTE; i++){
+            if (laagsteRang > handRang[i]){
+                laagsteRang = handRang[i];
+            }
+        }
+
+
     }
 }
