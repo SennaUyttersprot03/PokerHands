@@ -35,13 +35,25 @@ class PokerHandTest {
 
     @Test
     public void testTeWeinigKaarten() {
-        Card[] cards = {new Card("C4"),
+        Card[] cards = {
+                new Card("C4"),
                 new Card("C3"),
                 new Card("D7"),
-                new Card("H2")};
+                new Card("H2")
+        };
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new PokerHand(cards));
         assertEquals("Hand is kleiner dan 5", exception.getMessage());
     }
-
+    @Test
+    public void testTweeKeerDezelfdeKaart() {
+        Card[] cards = {
+                new Card("C4"),
+                new Card("C4"),
+                new Card("D7"),
+                new Card("H2"),
+                new Card("S2")
+        };
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new PokerHand(cards));
+    }
 
 }
