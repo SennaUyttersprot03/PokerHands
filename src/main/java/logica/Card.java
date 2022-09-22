@@ -34,4 +34,8 @@ public class Card {
     public void setValue(String value) {
         this.value = value;
     }
+
+    public String getCard(){
+        return type + value;
+    }
 }
