@@ -35,13 +35,7 @@ public class PokerHand {
         if ((hand[0].getCard() == "HA") && (hand[0].getCard() == "HK") && (hand[0].getCard() == "HQ") && (hand[0].getCard() == "HJ") && (hand[0].getCard() == "H10")){
             return "royal flush";
         }
-
-        int aantalOplopendeKaarten = 0;
-
-
-
-
-
+        return "";
     }
 
     public boolean alleTypesHetzelfde(){
