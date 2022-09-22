@@ -14,6 +14,12 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.bryghts.enum</groupId>
+            <artifactId>enum_2.12</artifactId>
+            <version>0.1.30</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <properties>

@@ -1,8 +1,5 @@
 package logica;
 import Enum.CardTypes;
-
-import java.util.Objects;
-
 /**
  * PokerHands : Card
  *
@@ -36,13 +33,5 @@ public class Card {
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Card card = (Card) o;
-        return type == card.type && Objects.equals(value, card.value);
     }
 }
