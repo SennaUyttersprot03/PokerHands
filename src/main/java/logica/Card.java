@@ -1,6 +1,5 @@
 package logica;
 import Enum.CardTypes;
-
 /**
  * PokerHands : Card
  *
