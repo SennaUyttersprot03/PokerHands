@@ -1,5 +1,7 @@
 package logica;
+
 import Enum.CardTypes;
+
 /**
  * PokerHands : Card
  *
@@ -14,12 +16,13 @@ public class Card {
         this.type = CardTypes.valueOf(type);
         this.value = value;
     }
+
     public Card(String card) throws IllegalArgumentException {
         this.type = CardTypes.valueOf("" + card.charAt(0));
         String temp = card.substring(1);
-        if ("JQKA".contains(temp) ||
-                (2 <= Integer.parseInt(temp)
-                && Integer.parseInt(temp) <= 10)) {
+        if (temp.length() >= 2 && Integer.parseInt(temp) != 10) throw new IllegalArgumentException("Should be between [2,10] or be J,Q,K or A");
+        if ((2 <= Integer.parseInt(temp)
+            && Integer.parseInt(temp) <= 10)) {
             this.value = temp;
         } else throw new IllegalArgumentException("Should be between [2,10] or be J,Q,K or A");
 
@@ -41,7 +44,7 @@ public class Card {
         this.value = value;
     }
 
-    public String getCard(){
+    public String getCard() {
         return type + value;
     }
 }
