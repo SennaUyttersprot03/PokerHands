@@ -18,7 +18,9 @@ class CardTest {
         for (int i = 'A'; i <= 'Z'; i++) {
             if (i == 'C' || i == 'D' || i == 'H' || i == 'S') continue;
             char t = (char) i;
-            assertThrows(IllegalArgumentException.class, () -> new Card(t + "1"));
+            Exception exception = assertThrows(IllegalArgumentException.class, () -> new Card(t + "1"));
+            String v = exception.getMessage();
+            assertEquals("No enum constant Enum.CardTypes."+t, exception.getMessage());
         }
         ;
     }
@@ -27,7 +29,8 @@ class CardTest {
     @CsvSource(value = {"1 15 C"})
     public void valueTestOnWrongCardValues(String cardValues) {
         for (String cardValue : cardValues.split(" ")) {
-            assertThrows(IllegalArgumentException.class, () -> new Card("C" + cardValue));
+            Exception exception = assertThrows(IllegalArgumentException.class, () -> new Card("C" + cardValue));
+            assertEquals("Should be between [2,10] or be J,Q,K or A", exception.getMessage());
         }
     }
 }

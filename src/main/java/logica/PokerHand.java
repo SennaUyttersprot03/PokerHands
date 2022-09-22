@@ -17,11 +17,16 @@ public class PokerHand {
     private String[] kaartValue = {"A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3"};
 
 
+
     public PokerHand(Card[] hand){
         if (hand.length < 5){
             throw new IllegalArgumentException("Hand is kleiner dan 5");
-        }else if(hand.length > 5){
+        } else if (hand.length > 5) {
             throw new IllegalArgumentException("Hand is groter dan 5");
+        }
+
+        if (!bevatDubbeleKaarten(hand)) {
+            throw new IllegalArgumentException("Hand bevat dubbele kaarten");
         }
        this.hand = hand;
     }
@@ -30,6 +35,12 @@ public class PokerHand {
         if ((hand[0].getCard() == "HA") && (hand[0].getCard() == "HK") && (hand[0].getCard() == "HQ") && (hand[0].getCard() == "HJ") && (hand[0].getCard() == "H10")){
             return "royal flush";
         }
+
+        int aantalOplopendeKaarten = 0;
+
+
+
+
 
     }
 
@@ -43,24 +54,16 @@ public class PokerHand {
         return cardZelfdeTekens;
     }
 
-    public boolean opeenLopendeVlues(){
-        boolean output = true;
-        int aantalOplopendeKaarten = 0;
-        int[] handRang = new int[5];
-        for(int i = 0; i < HANDGROTE; i++){
-            for(int x = 0; x < kaartValue.length; x++){
-                if(hand[i].getValue() == kaartValue[x]){
-                    handRang[i] = x;
+    public boolean bevatDubbeleKaarten(Card[] hand) {
+        for (int i = 0; i < hand.length - 1; i++) {
+            Card temp = hand[i];
+
+            for (int j = i + 1; j < hand.length - 2; j++) {
+                if (temp == hand[j]) {
+                    return false;
                 }
             }
         }
-        int laagsteRang = 14;
-        for (int i = 0; i < HANDGROTE; i++){
-            if (laagsteRang > handRang[i]){
-                laagsteRang = handRang[i];
-            }
-        }
-
-
+        return true;
     }
 }
