@@ -17,7 +17,7 @@ public class PokerHand {
     private String[] kaartValue = {"A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3"};
 
 
-    public PokerHand(Card hand []){
+    public PokerHand(Card[] hand){
         if (hand.length < 5){
             throw new IllegalArgumentException("Hand is kleiner dan 5");
         }else if(hand.length > 5){
@@ -31,13 +31,21 @@ public class PokerHand {
             return "royal flush";
         }
 
+        int aantalOplopendeKaarten = 0;
+
+
+
+
+
+    }
+
+    public boolean alleTypeHetzelfde(){
         boolean cardZelfdeTekens = true;
         for (int i = 0; i < HANDGROTE; i++){
             if (hand[0].getType() != hand[i].getType()){
                 cardZelfdeTekens = false;
             }
         }
-
-
+        return cardZelfdeTekens;
     }
 }
