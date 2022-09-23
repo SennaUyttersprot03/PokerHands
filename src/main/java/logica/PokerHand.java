@@ -1,7 +1,9 @@
 package logica;
 import Enum.CardTypes;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -31,6 +33,20 @@ public class PokerHand {
        this.hand = hand;
     }
 
+
+    public String getScore() {
+        if (alleTypesHetzelfde()) {
+            if (opeenvolgend()) {
+                return "Straight Flush";
+            }
+            return "Flush";
+        }
+        if (opeenvolgend()) {
+            return "Straight";
+        }
+        return "Geen speciale combinatie";
+    }
+
     public String getCombinatie(){
         if ((hand[0].getCard() == "HA") && (hand[0].getCard() == "HK") && (hand[0].getCard() == "HQ") && (hand[0].getCard() == "HJ") && (hand[0].getCard() == "H10")){
             return "royal flush";
@@ -38,7 +54,7 @@ public class PokerHand {
         return "";
     }
 
-    public boolean alleTypesHetzelfde(){
+    private boolean alleTypesHetzelfde(){
         boolean cardZelfdeTekens = true;
         for (int i = 0; i < HANDGROTE; i++){
             if (hand[0].getType() != hand[i].getType()){
@@ -48,12 +64,40 @@ public class PokerHand {
         return cardZelfdeTekens;
     }
 
+    private boolean opeenvolgend() {
+        ArrayList<Integer> valueArray = new ArrayList<>();
+        for(Card card : this.hand) {
+            String temp = card.value;
+            valueArray.add(valueToInt(temp));
+        }
+        Collections.sort(valueArray);
+        for (int i = 0; i < valueArray.size()-1; i++) {
+            int diff = valueArray.get(i + 1) - valueArray.get(i);
+            if (diff != 1 && !(diff == 9 && valueArray.get(i) == 5)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private int valueToInt(String value) {
+        int intValue;
+        switch (value) {
+            case "J": intValue = 11;break;
+            case "Q": intValue = 12;break;
+            case "K": intValue = 13;break;
+            case "A": intValue = 14;break;
+            default: intValue = Integer.parseInt(value);
+        }
+        return intValue;
+    }
+
     public boolean bevatDubbeleKaarten(Card[] hand) {
         for (int i = 0; i < hand.length - 1; i++) {
             Card temp = hand[i];
 
             for (int j = i + 1; j < hand.length - 2; j++) {
-                if (temp == hand[j]) {
+                if (temp.equals(hand[j])) {
                     return false;
                 }
             }

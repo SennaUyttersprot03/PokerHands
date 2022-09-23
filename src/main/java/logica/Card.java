@@ -1,8 +1,12 @@
 package logica;
 
 import Enum.CardTypes;
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * PokerHands : Card
@@ -24,7 +28,7 @@ public class Card {
         String temp = card.substring(1);
         if (temp.length() >= 2 && Integer.parseInt(temp) != 10)
             throw new IllegalArgumentException("Should be between [2,10] or be J,Q,K or A");
-        if ((2 >= Integer.parseInt(temp) || Integer.parseInt(temp) >= 10) && !"JQKA".contains(temp))
+        if (!"JQKA".contains(temp) && (2 > Integer.parseInt(temp) || Integer.parseInt(temp) > 10))
             throw new IllegalArgumentException();
         this.value = temp;
     }
@@ -47,5 +51,13 @@ public class Card {
 
     public String getCard() {
         return type + value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card card = (Card) o;
+        return type == card.type && Objects.equals(value, card.value);
     }
 }

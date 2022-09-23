@@ -44,6 +44,7 @@ class PokerHandTest {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new PokerHand(cards));
         assertEquals("Hand is kleiner dan 5", exception.getMessage());
     }
+
     @Test
     public void testTweeKeerDezelfdeKaart() {
         Card[] cards = {
@@ -54,28 +55,89 @@ class PokerHandTest {
                 new Card("S2")
         };
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new PokerHand(cards));
-    };
+    }
 
+    ;
 
     @Test
-    public void testOngeldigeKaart1() {
-        Card[] cards = {new Card("C4"),
-                new Card("L3"),
-                new Card("D7"),
-                new Card("H2"),
-                new Card("H8")};
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new PokerHand(cards));
-        assertEquals("No enum constant Enum.CardTypes.L", exception.getMessage());
+    public void testFlush() {
+        PokerHand flush = new PokerHand(
+                new Card[]{
+                        new Card("H2"),
+                        new Card("H3"),
+                        new Card("H4"),
+                        new Card("H7"),
+                        new Card("H6")
+                }
+        );
+        PokerHand noFlush = new PokerHand(
+                new Card[]{
+                        new Card("H2"),
+                        new Card("H3"),
+                        new Card("D4"),
+                        new Card("C3"),
+                        new Card("S6")
+                }
+        );
+        assertEquals("Flush", flush.getScore());
+        assertNotEquals("Flush", noFlush.getScore());
     }
 
     @Test
-    public void testOngeldigeKaart2() {
-        Card[] cards = {new Card("C4"),
-                new Card("H15"),
-                new Card("D7"),
-                new Card("H2"),
-                new Card("H8")};
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new PokerHand(cards));
-        assertEquals("Should be between [2,10] or be J,Q,K or A", exception.getMessage());
+    public void testStraight() {
+        PokerHand straight = new PokerHand(
+                new Card[]{
+                        new Card("H2"),
+                        new Card("S3"),
+                        new Card("D4"),
+                        new Card("S5"),
+                        new Card("H6")
+                }
+        );
+        PokerHand highestStraight = new PokerHand(
+                new Card[]{
+                        new Card("H10"),
+                        new Card("SJ"),
+                        new Card("DQ"),
+                        new Card("SK"),
+                        new Card("HA")
+                }
+        );
+        PokerHand lowestStraight = new PokerHand(
+                new Card[]{
+                        new Card("H2"),
+                        new Card("S4"),
+                        new Card("D3"),
+                        new Card("S5"),
+                        new Card("HA")
+                }
+        );
+        PokerHand noStraight = new PokerHand(
+                new Card[]{
+                        new Card("H2"),
+                        new Card("H3"),
+                        new Card("D4"),
+                        new Card("C3"),
+                        new Card("S6")
+                }
+        );
+        assertEquals("Straight", straight.getScore());
+        assertEquals("Straight", highestStraight.getScore());
+        assertEquals("Straight", lowestStraight.getScore());
+        assertNotEquals("Straight", noStraight.getScore());
+    }
+
+    @Test
+    public void testStraightFlush() {
+        PokerHand straightFlush = new PokerHand(
+                new Card[]{
+                        new Card("H2"),
+                        new Card("H3"),
+                        new Card("H4"),
+                        new Card("H5"),
+                        new Card("H6")
+                }
+        );
+        assertEquals("Straight Flush", straightFlush.getScore());
     }
 }
