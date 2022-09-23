@@ -35,13 +35,16 @@ public class PokerHand {
 
 
     public String getScore() {
+        if (alleTypesHetzelfde() && opeenvolgend().equals("High")) {
+            return "Royal Flush";
+        }
+        if (alleTypesHetzelfde() && opeenvolgend().equals("True")) {
+            return "Straight Flush";
+        }
         if (alleTypesHetzelfde()) {
-            if (opeenvolgend()) {
-                return "Straight Flush";
-            }
             return "Flush";
         }
-        if (opeenvolgend()) {
+        if (opeenvolgend().equals("True")) {
             return "Straight";
         }
         return "Geen speciale combinatie";
@@ -64,7 +67,7 @@ public class PokerHand {
         return cardZelfdeTekens;
     }
 
-    private boolean opeenvolgend() {
+    private String opeenvolgend() {
         ArrayList<Integer> valueArray = new ArrayList<>();
         for(Card card : this.hand) {
             String temp = card.value;
@@ -74,10 +77,10 @@ public class PokerHand {
         for (int i = 0; i < valueArray.size()-1; i++) {
             int diff = valueArray.get(i + 1) - valueArray.get(i);
             if (diff != 1 && !(diff == 9 && valueArray.get(i) == 5)) {
-                return false;
+                return "False";
             }
         }
-        return true;
+        return (valueArray.get(0) == 10 ? "High" : "True");
     }
 
     private int valueToInt(String value) {

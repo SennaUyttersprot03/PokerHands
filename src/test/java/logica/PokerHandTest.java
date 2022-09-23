@@ -96,11 +96,11 @@ class PokerHandTest {
         );
         PokerHand highestStraight = new PokerHand(
                 new Card[]{
-                        new Card("H10"),
-                        new Card("SJ"),
+                        new Card("H9"),
+                        new Card("S10"),
                         new Card("DQ"),
                         new Card("SK"),
-                        new Card("HA")
+                        new Card("HJ")
                 }
         );
         PokerHand lowestStraight = new PokerHand(
@@ -139,5 +139,19 @@ class PokerHandTest {
                 }
         );
         assertEquals("Straight Flush", straightFlush.getScore());
+    }
+
+    @Test
+    public void testRoyalFlush() {
+        PokerHand royalFlush = new PokerHand(
+                new Card[]{
+                        new Card("H10"),
+                        new Card("HJ"),
+                        new Card("HQ"),
+                        new Card("HK"),
+                        new Card("HA"),
+                }
+        );
+        assertEquals("Royal Flush", royalFlush.getScore());
     }
 }
